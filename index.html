@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#101a31" />
+  <title>Sunset Circuit — Time Trial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="game-shell">
+    <canvas id="game-canvas" aria-label="3D kart racing game"></canvas>
+    <div class="world-vignette"></div>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Sunset Circuit home">
+        <span class="brand-mark"><i></i><i></i><i></i></span>
+        <span class="brand-copy">PIXEL<span>GRAND</span></span>
+      </a>
+      <div class="event-pill"><span class="live-dot"></span> TIME TRIAL <span class="event-divider">/</span> <b>01 TRACK</b></div>
+      <button class="sound-button" id="sound-button" aria-label="Toggle sound"><span id="sound-icon">♪</span><span class="sound-label">SOUND ON</span></button>
+    </header>
+
+    <section class="race-hud" id="race-hud" aria-live="polite">
+      <div class="timer-panel hud-panel">
+        <div class="hud-eyebrow"><span class="tiny-flag">▰</span> TIME REMAINING</div>
+        <div class="timer-value" id="timer">60<span>.00</span></div>
+        <div class="timer-track"><i id="timer-bar"></i></div>
+      </div>
+      <div class="lap-panel hud-panel">
+        <div class="hud-eyebrow">LAP <span class="lap-number" id="lap-number">01</span> <span class="lap-total">/ 03</span></div>
+        <div class="lap-time" id="lap-time">00:00.00</div>
+        <div class="best-label">BEST <span id="best-time">— — : — — . — —</span></div>
+      </div>
+      <div class="position-panel">
+        <div class="hud-eyebrow">POSITION</div>
+        <div class="position-value">1<span>ST</span></div>
+        <div class="position-note">SOLO RUN</div>
+      </div>
+      <div class="track-map hud-panel">
+        <div class="map-title">SUNSET CIRCUIT <span>● LIVE</span></div>
+        <svg viewBox="0 0 170 94" aria-label="Track map">
+          <path class="map-track-shadow" d="M31 68 C17 58 24 31 44 24 C64 17 89 19 108 25 C132 32 149 42 143 57 C137 74 113 79 90 75 C69 72 49 79 31 68Z" />
+          <path class="map-track" d="M31 68 C17 58 24 31 44 24 C64 17 89 19 108 25 C132 32 149 42 143 57 C137 74 113 79 90 75 C69 72 49 79 31 68Z" />
+          <path class="map-center" d="M31 68 C17 58 24 31 44 24 C64 17 89 19 108 25 C132 32 149 42 143 57 C137 74 113 79 90 75 C69 72 49 79 31 68Z" />
+          <circle id="map-player" cx="33" cy="67" r="4" />
+        </svg>
+        <div class="map-footer"><span><i class="map-dot"></i> YOU</span><span id="map-checkpoint">CHECKPOINT 01</span></div>
+      </div>
+    </section>
+
+    <div class="center-notice" id="center-notice" aria-live="assertive"></div>
+
+    <section class="race-bottom" id="race-bottom">
+      <div class="controls-hint"><span class="keycap">W</span><span class="keycap wide">A</span><span class="keycap">S</span><span class="keycap wide">D</span><span class="hint-copy">STEER &amp; ACCELERATE</span><span class="hint-separator"></span><span class="keycap space">SPACE</span><span class="hint-copy">DRIFT</span></div>
+      <div class="speed-cluster"><div class="speed-readout"><span id="speed">000</span><small>KM/H</small></div><div class="speed-meter"><i id="speed-meter"></i></div><div class="boost-readout"><span class="bolt">ϟ</span> TURBO <b id="boost-state">READY</b></div></div>
+    </section>
+    <div class="mobile-controls" id="mobile-controls">
+      <button class="touch-steer" id="touch-left" aria-label="Steer left">‹</button>
+      <button class="touch-steer" id="touch-right" aria-label="Steer right">›</button>
+      <button class="touch-drift" id="touch-drift">DRIFT</button>
+      <button class="touch-gas" id="touch-gas">GO <span>▲</span></button>
+    </div>
+
+    <section class="overlay intro-overlay" id="intro-overlay">
+      <div class="intro-card">
+        <div class="intro-kicker"><span class="sun-icon">✳</span> THE GRAND PRIX ARCADE <span class="kicker-line"></span> 2025</div>
+        <div class="title-lockup"><div class="title-small">READY, SET,</div><h1>SUNSET<br /><span>CIRCUIT</span></h1><div class="title-badge">TIME<br />TRIAL</div></div>
+        <p class="intro-description">One track. Three laps. Sixty seconds.<br /><strong>How fast can you fly?</strong></p>
+        <div class="intro-stats"><div><span class="stat-icon">◷</span><b>60</b><small>SECONDS</small></div><div><span class="stat-icon">↻</span><b>03</b><small>LAPS</small></div><div><span class="stat-icon">✦</span><b>01</b><small>RACER</small></div></div>
+        <button class="start-button" id="start-button"><span>START YOUR ENGINE</span><b>→</b></button>
+        <div class="intro-foot"><span>KEYBOARD <b>WASD</b> / <b>ARROWS</b></span><i></i><span>DRIFT <b>SPACE</b></span></div>
+      </div>
+      <div class="overlay-corner corner-tl">PG / 001</div><div class="overlay-corner corner-br">EST. 2025 · SUNSET ISLAND</div>
+    </section>
+
+    <section class="overlay result-overlay hidden" id="result-overlay">
+      <div class="result-card">
+        <div class="result-kicker">SUNSET CIRCUIT <span>·</span> TIME TRIAL</div>
+        <div class="result-medal" id="result-medal">★</div>
+        <h2 id="result-title">TIME'S UP!</h2>
+        <p id="result-copy">A great run. The circuit is waiting.</p>
+        <div class="result-stats"><div><small>LAPS COMPLETED</small><b id="result-laps">00</b></div><div><small>BEST LAP</small><b id="result-best">—:—.—</b></div><div><small>TOP SPEED</small><b id="result-speed">000 <i>KM/H</i></b></div></div>
+        <button class="start-button" id="restart-button"><span>RACE AGAIN</span><b>↻</b></button>
+        <div class="result-foot">PERSONAL BEST SAVES AUTOMATICALLY</div>
+      </div>
+    </section>
+    <div class="toast" id="toast"></div>
+  </main>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
